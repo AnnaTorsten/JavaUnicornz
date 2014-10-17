@@ -1,0 +1,69 @@
+<html>
+	<head>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$('#button').click(function(){
+
+					var location = $("input[name=location]").val()
+					$.ajax({
+					    url: 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?rankby=distance',
+					    data: {
+					    	"key": 'AIzaSyDVw-ruTyNahkP3hx7LcNP8XXHNqr0BSYA',
+					    	"location": coordinates,
+					     // "radius": '5000', This isn't needed since we use rankby=distance in url.
+					    	"types": 'train_station'
+					    },
+					    dataType: "json",
+					    type: 'get',
+					    crossDomain: 'true',
+
+					    success: function(data) {
+					    	$("#result").html("");
+					    	var stations = data.results;
+					    	if (stations.length > 0) {
+						    	for (i = 0; i < stations.length-1; i++ ) {
+						    		$("#result").append(stations[i].name + "<br>");
+						    	};
+					    	};
+				    		// console.log(stations);
+				    		// console.log(location);
+					    },
+					    error: function(data) {
+					    	$("#result").html(JSON.stringify(data));
+					    }
+					});
+				});
+		    });
+		</script>
+	</head>
+	<body>
+		<form>
+	        <p>Location:</p><input type="text" name="location" value="59.3293235,18.0685808"><br>
+			<input type="button" value="Find Stations" id="button" >
+		</form>
+		<div id = "result">
+		</div>
+		<p id="demo">Click the button to get your coordinates:</p>
+
+		<button onclick="getLocation()">Try It</button>
+
+		<script>
+		// var x = document.getElementById("demo");
+
+		function getLocation() {
+		    if (navigator.geolocation) {
+		        navigator.geolocation.getCurrentPosition(showPosition);
+		    } else { 
+		        x.innerHTML = "Geolocation is not supported by this browser.";
+		    }
+		}
+
+		function showPosition(position) {
+		    coordinates = position.coords.latitude + ',' + position.coords.longitude;
+		    console.log(coordinates);	
+		}
+		</script>
+	</body>
+</html>
