@@ -14,17 +14,19 @@ var getLocation = function() {			//Runs the code ASAP
 
 function getStations(coordinates) {		//Uses coordinates to find nearby stations and Google Places API
 	$.ajax({
-		url: 'https://maps.googleapis.com/maps/api/place/nearbysearch/json',
+		url: 'http://lit-headland-6335.herokuapp.com/maps/api/place/nearbysearch/json',
 		    data: {
-		    	"key": 'AIzaSyDVw-ruTyNahkP3hx7LcNP8XXHNqr0BSYA',
+		    	"rankby": 'distance',
+		    	//"key": 'AIzaSyDVw-ruTyNahkP3hx7LcNP8XXHNqr0BSYA',
 		    	"location": coordinates,
 		    	"types": 'train_station',
-		    	"rankby": 'distance',
+		    	"protocol": 'https',
+		    	"hostname": 'maps.googleapis.com',
 		    	// "radius": '5000', This isn't needed since we use rankby=distance in url.
 		    },
 		    dataType: "json",
 		    type: 'get',
-		    crossDomain: 'true',
+		    //crossDomain: 'true',
 
 
 		success: function(data) {
@@ -50,9 +52,10 @@ function getSiteId(site, number) {		//Finds SiteId using the nearby stations and
 	$.ajax({
 		url: 'http://lit-headland-6335.herokuapp.com/api2/typeahead.json',
 		data: {
-			"key": '93755c16ac8e487096c640ae0327b483',
+			//"key": '93755c16ac8e487096c640ae0327b483',
 			"searchstring": site,
 			"hostname": 'api.sl.se',
+			"protocol": 'http',
 		},
 		dataType: "json",
 		type: 'get',
@@ -77,10 +80,11 @@ function getDepartures(siteid, stationname, number) {		//Uses SiteId to find dep
 	$.ajax({
 	    url: 'http://lit-headland-6335.herokuapp.com/api2/realtimedepartures.json',
 	    data: {
-	    	"key": '74b0060de6e2403780e6dfbacada5743',
+	    	//"key": '74b0060de6e2403780e6dfbacada5743',
 	    	"siteid": siteid,
 	    	"timewindow": 10,
 	    	"hostname": 'api.sl.se',
+	    	"protocol": 'http',
 	    },
 	    dataType: "json",
 	    type: 'get',
