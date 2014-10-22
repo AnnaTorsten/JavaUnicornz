@@ -1,3 +1,4 @@
+
 // Tries to get the users location.
 var getLocation = function() {			//Runs the code ASAP
 	if (navigator.geolocation) {		//Only runs the code if the browser is able
@@ -13,17 +14,21 @@ var getLocation = function() {			//Runs the code ASAP
 
 function getStations(coordinates) {		//Uses coordinates to find nearby stations and Google Places API
 	$.ajax({
-		url: 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?rankby=distance',
-		data: {
-			"key": 'AIzaSyDVw-ruTyNahkP3hx7LcNP8XXHNqr0BSYA',
-			"location": coordinates,
-			"types": 'train_station',
-			"hostname": 'https://maps.googleapis.com',
-		},
-		dataType: "json",
-		type: 'get',
+		url: 'https://maps.googleapis.com/maps/api/place/nearbysearch/json',
+		    data: {
+		    	"key": 'AIzaSyDVw-ruTyNahkP3hx7LcNP8XXHNqr0BSYA',
+		    	"location": coordinates,
+		    	"types": 'train_station',
+		    	"rankby": 'distance',
+		    	// "radius": '5000', This isn't needed since we use rankby=distance in url.
+		    },
+		    dataType: "json",
+		    type: 'get',
+		    crossDomain: 'true',
+
 
 		success: function(data) {
+			console.log(data);
 			$("#result").html("");
 			var nearbystations = data.results;
 			if (nearbystations.length > 0) {
