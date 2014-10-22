@@ -17,11 +17,11 @@ function getStations(coordinates) {		//Uses coordinates to find nearby stations 
 		data: {
 			"key": 'AIzaSyDVw-ruTyNahkP3hx7LcNP8XXHNqr0BSYA',
 			"location": coordinates,
-			"types": 'train_station'
+			"types": 'train_station',
+			"hostname": 'https://maps.googleapis.com',
 		},
 		dataType: "json",
 		type: 'get',
-		crossDomain: 'true',
 
 		success: function(data) {
 			$("#result").html("");
@@ -43,15 +43,15 @@ function getStations(coordinates) {		//Uses coordinates to find nearby stations 
 function getSiteId(site, number) {		//Finds SiteId using the nearby stations and SL Platsinfo API
 	console.log('#' + number + 'running getSiteId for ' + site);
 	$.ajax({
-		url: 'http://api.sl.se/api2/typeahead.json',
+		url: 'http://lit-headland-6335.herokuapp.com/api2/typeahead.json',
 		data: {
 			"key": '93755c16ac8e487096c640ae0327b483',
-			"searchstring": site
+			"searchstring": site,
+			"hostname": 'api.sl.se',
 		},
 		dataType: "json",
 		type: 'get',
-		crossDomain: 'true',
-
+						
 		success: function(data) {
 			console.log('#' + number + 'received data in getSitdeId for ' + site);
 			var siteidstation = (data.ResponseData[0].SiteId)
@@ -70,15 +70,15 @@ function getSiteId(site, number) {		//Finds SiteId using the nearby stations and
 function getDepartures(siteid, stationname, number) {		//Uses SiteId to find departures with SL Realtidsinfo API
 	console.log('#' + number + 'calling getDepartures ' + siteid);
 	$.ajax({
-		url: 'http://api.sl.se/api2/realtimedepartures.json',
-		data: {
-			"key": '74b0060de6e2403780e6dfbacada5743',
-			"siteid": siteid,
-			"timewindow": 30								//The timewindow for departures, if too long it seems to truncate results.
-		},
-		dataType: "json",
-		type: 'get',
-		crossDomain: 'true',
+	    url: 'http://lit-headland-6335.herokuapp.com/api2/realtimedepartures.json',
+	    data: {
+	    	"key": '74b0060de6e2403780e6dfbacada5743',
+	    	"siteid": siteid,
+	    	"timewindow": 10,
+	    	"hostname": 'api.sl.se',
+	    },
+	    dataType: "json",
+	    type: 'get',
 
 		success: function(data) {
 			console.log('received data in getDepartures for ' + siteid);
