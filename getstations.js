@@ -1,3 +1,4 @@
+
 // Tries to get the users location.
 var getLocation = function() {			//Runs the code ASAP
 	if (navigator.geolocation) {		//Only runs the code if the browser is able
@@ -13,17 +14,23 @@ var getLocation = function() {			//Runs the code ASAP
 
 function getStations(coordinates) {		//Uses coordinates to find nearby stations and Google Places API
 	$.ajax({
-		url: 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?rankby=distance',
-		data: {
-			"key": 'AIzaSyDVw-ruTyNahkP3hx7LcNP8XXHNqr0BSYA',
-			"location": coordinates,
-			"types": 'train_station'
-		},
-		dataType: "json",
-		type: 'get',
-		crossDomain: 'true',
+		url: 'http://lit-headland-6335.herokuapp.com/maps/api/place/nearbysearch/json',
+		    data: {
+		    	"rankby": 'distance',
+		    	//"key": 'AIzaSyDVw-ruTyNahkP3hx7LcNP8XXHNqr0BSYA',
+		    	"location": coordinates,
+		    	"types": 'train_station',
+		    	"protocol": 'https',
+		    	"hostname": 'maps.googleapis.com',
+		    	// "radius": '5000', This isn't needed since we use rankby=distance in url.
+		    },
+		    dataType: "json",
+		    type: 'get',
+		    //crossDomain: 'true',
+
 
 		success: function(data) {
+			console.log(data);
 			$("#result").html("");
 			var nearbystations = data.results;
 			if (nearbystations.length > 0) {
@@ -43,15 +50,16 @@ function getStations(coordinates) {		//Uses coordinates to find nearby stations 
 function getSiteId(site, number) {		//Finds SiteId using the nearby stations and SL Platsinfo API
 	console.log('#' + number + 'running getSiteId for ' + site);
 	$.ajax({
-		url: 'http://api.sl.se/api2/typeahead.json',
+		url: 'http://lit-headland-6335.herokuapp.com/api2/typeahead.json',
 		data: {
-			"key": '93755c16ac8e487096c640ae0327b483',
-			"searchstring": site
+			//"key": '93755c16ac8e487096c640ae0327b483',
+			"searchstring": site,
+			"hostname": 'api.sl.se',
+			"protocol": 'http',
 		},
 		dataType: "json",
 		type: 'get',
-		crossDomain: 'true',
-
+						
 		success: function(data) {
 			console.log('#' + number + 'received data in getSitdeId for ' + site);
 			var siteidstation = (data.ResponseData[0].SiteId)
@@ -70,15 +78,16 @@ function getSiteId(site, number) {		//Finds SiteId using the nearby stations and
 function getDepartures(siteid, stationname, number) {		//Uses SiteId to find departures with SL Realtidsinfo API
 	console.log('#' + number + 'calling getDepartures ' + siteid);
 	$.ajax({
-		url: 'http://api.sl.se/api2/realtimedepartures.json',
-		data: {
-			"key": '74b0060de6e2403780e6dfbacada5743',
-			"siteid": siteid,
-			"timewindow": 30								//The timewindow for departures, if too long it seems to truncate results.
-		},
-		dataType: "json",
-		type: 'get',
-		crossDomain: 'true',
+	    url: 'http://lit-headland-6335.herokuapp.com/api2/realtimedepartures.json',
+	    data: {
+	    	//"key": '74b0060de6e2403780e6dfbacada5743',
+	    	"siteid": siteid,
+	    	"timewindow": 10,
+	    	"hostname": 'api.sl.se',
+	    	"protocol": 'http',
+	    },
+	    dataType: "json",
+	    type: 'get',
 
 		success: function(data) {
 			console.log('received data in getDepartures for ' + siteid);
