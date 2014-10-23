@@ -29,7 +29,7 @@ function getStations(coordinates) {		//Uses coordinates to find nearby stations 
 			if (nearbystations.length > 0) {
 				for (i = 0; i < 2; i++ ) {	//Itterates through nearby stations
 					getSiteId(nearbystations[i].name.toLowerCase(),i+1);
-					$("#result").append("<div id= \"station" + (i + 1) + "\"></div>"); 
+					$("#result").append("<div class=\"station\" id=\"station" + (i + 1) + "\"></div>"); 
 				}
 			}
 		},
@@ -87,9 +87,17 @@ function getDepartures(siteid, stationname, number) {		//Uses SiteId to find dep
 			if (metros.length > 0 || trains.length > 0) {	//Checks it is a metro or train station
 				$("#station" + number).append("<h2>" + stationname + "</h2>");
 				if (metros.length > 0) {					//Checks if it is a metro station
-					$("#station" + number).append("<div class = \"metros\"><div class = \"direction1\"></div><div class = \"direction2\"></div></div>");
+					var lines = {};
+					$("#station" + number).append("<div class = \"metros\"></div>");
+					// $("#station" + number + " > .metros").append("<div class = \"direction1\"></div>");
+					// $("#station" + number + " > .metros").append("<div class = \"direction2\"></div>");
 					for (j = 0; j < metros.length; j++ ) { 	//Iterates through all departures
-						$("#station" + number + " > .metros > .direction" + metros[j].JourneyDirection).append("<li>" + metros[j].Destination + " " + metros[j].DisplayTime + "</li>");
+						if ($("#station" + number + " > .metros > .color" + metros[j].GroupOfLineId)[0]) {	//Checks if a div for the line exists
+							$("#station" + number + " > .metros > .color" + metros[j].GroupOfLineId + " > .direction" + metros[j].JourneyDirection).append("<li>" + metros[j].Destination + " " + metros[j].DisplayTime + "</li>");
+						} else {																			//First adds a div for the line if it doesn't exists
+							$("#station" + number + " > .metros").append("<div class = \"color" + metros[j].GroupOfLineId + "\"><div class = \"direction1\"></div><div class = \"direction2\"></div></div>")
+							$("#station" + number + " > .metros > .color" + metros[j].GroupOfLineId + " > .direction" + metros[j].JourneyDirection).append("<li>" + metros[j].Destination + " " + metros[j].DisplayTime + "</li>");
+						};
 					}
 				}
 				if (trains.length > 0) {					//Checks if it is a train station
