@@ -1,4 +1,3 @@
-
 // Tries to get the users location.
 var getLocation = function() {			//Runs the code ASAP
 	if (navigator.geolocation) {		//Only runs the code if the browser is able
@@ -14,29 +13,23 @@ var getLocation = function() {			//Runs the code ASAP
 
 function getStations(coordinates) {		//Uses coordinates to find nearby stations and Google Places API
 	$.ajax({
-		url: 'http://lit-headland-6335.herokuapp.com/maps/api/place/nearbysearch/json',
-		    data: {
-		    	"rankby": 'distance',
-		    	//"key": 'AIzaSyDVw-ruTyNahkP3hx7LcNP8XXHNqr0BSYA',
-		    	"location": coordinates,
-		    	"types": 'train_station',
-		    	"protocol": 'https',
-		    	"hostname": 'maps.googleapis.com',
-		    	// "radius": '5000', This isn't needed since we use rankby=distance in url.
-		    },
-		    dataType: "json",
-		    type: 'get',
-		    //crossDomain: 'true',
-
+		url: 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?rankby=distance',
+		data: {
+			"key": 'AIzaSyDVw-ruTyNahkP3hx7LcNP8XXHNqr0BSYA',
+			"location": coordinates,
+			"types": 'train_station'
+		},
+		dataType: "json",
+		type: 'get',
+		crossDomain: 'true',
 
 		success: function(data) {
-			console.log(data);
 			$("#result").html("");
 			var nearbystations = data.results;
 			if (nearbystations.length > 0) {
 				for (i = 0; i < 2; i++ ) {	//Itterates through nearby stations
 					getSiteId(nearbystations[i].name.toLowerCase(),i+1);
-					$("#result").append("<div class=\"station\" id=\"station" + (i + 1) + "\"></div>"); 
+					$("#result").append("<div class=\"station\", id=\"station" + (i + 1) + "\"></div>"); 
 				}
 			}
 		},
@@ -50,16 +43,15 @@ function getStations(coordinates) {		//Uses coordinates to find nearby stations 
 function getSiteId(site, number) {		//Finds SiteId using the nearby stations and SL Platsinfo API
 	console.log('#' + number + 'running getSiteId for ' + site);
 	$.ajax({
-		url: 'http://lit-headland-6335.herokuapp.com/api2/typeahead.json',
+		url: 'http://api.sl.se/api2/typeahead.json',
 		data: {
-			//"key": '93755c16ac8e487096c640ae0327b483',
-			"searchstring": site,
-			"hostname": 'api.sl.se',
-			"protocol": 'http',
+			"key": '93755c16ac8e487096c640ae0327b483',
+			"searchstring": site
 		},
 		dataType: "json",
 		type: 'get',
-						
+		crossDomain: 'true',
+
 		success: function(data) {
 			console.log('#' + number + 'received data in getSitdeId for ' + site);
 			var siteidstation = (data.ResponseData[0].SiteId)
@@ -78,34 +70,39 @@ function getSiteId(site, number) {		//Finds SiteId using the nearby stations and
 function getDepartures(siteid, stationname, number) {		//Uses SiteId to find departures with SL Realtidsinfo API
 	console.log('#' + number + 'calling getDepartures ' + siteid);
 	$.ajax({
-	    url: 'http://lit-headland-6335.herokuapp.com/api2/realtimedepartures.json',
-	    data: {
-	    	//"key": '74b0060de6e2403780e6dfbacada5743',
-	    	"siteid": siteid,
-	    	"timewindow": 10,
-	    	"hostname": 'api.sl.se',
-	    	"protocol": 'http',
-	    },
-	    dataType: "json",
-	    type: 'get',
+		url: 'http://api.sl.se/api2/realtimedepartures.json',
+		data: {
+			"key": '74b0060de6e2403780e6dfbacada5743',
+			"siteid": siteid,
+			"timewindow": 30								//The timewindow for departures, if too long it seems to truncate results.
+		},
+		dataType: "json",
+		type: 'get',
+		crossDomain: 'true',
 
 		success: function(data) {
 			console.log('received data in getDepartures for ' + siteid);
 			var metros = data.ResponseData.Metros;
 			var trains = data.ResponseData.Trains;
 			if (metros.length > 0 || trains.length > 0) {	//Checks it is a metro or train station
-				$("#station" + number).append("<h2>" + stationname + "</h2>");
+				$("#station" + number).append("<div class = \"stationhead\"><h2>" + stationname + "</h2>
+					<button type = \"button\" class = \"toggleline1\" disabled></button>
+					<button type = \"button\" class = \"toggleline2\" disabled></button>
+					<button type = \"button\" class = \"toggleline3\" disabled></button>
+					<button type = \"button\" class = \"toggletrain\" disabled></button></div>");	//Creates a headline with the stations name and four disabled button for each line.
 				if (metros.length > 0) {					//Checks if it is a metro station
 					var lines = {};
 					$("#station" + number).append("<div class = \"metros\"></div>");
-					// $("#station" + number + " > .metros").append("<div class = \"direction1\"></div>");
-					// $("#station" + number + " > .metros").append("<div class = \"direction2\"></div>");
 					for (j = 0; j < metros.length; j++ ) { 	//Iterates through all departures
-						if ($("#station" + number + " > .metros > .color" + metros[j].GroupOfLineId)[0]) {	//Checks if a div for the line exists
-							$("#station" + number + " > .metros > .color" + metros[j].GroupOfLineId + " > .direction" + metros[j].JourneyDirection).append("<li>" + metros[j].Destination + " " + metros[j].DisplayTime + "</li>");
-						} else {																			//First adds a div for the line if it doesn't exists
-							$("#station" + number + " > .metros").append("<div class = \"color" + metros[j].GroupOfLineId + "\"><div class = \"direction1\"></div><div class = \"direction2\"></div></div>")
-							$("#station" + number + " > .metros > .color" + metros[j].GroupOfLineId + " > .direction" + metros[j].JourneyDirection).append("<li>" + metros[j].Destination + " " + metros[j].DisplayTime + "</li>");
+						if ($("#station" + number + " > .metros > .line" + metros[j].GroupOfLineId)[0]) {	//Checks if a div for the line exists
+							$("#station" + number + " > .metros > .line" + metros[j].GroupOfLineId + " > .direction" + metros[j].JourneyDirection)
+							.append("<li>" + metros[j].Destination + " " + metros[j].DisplayTime + "</li>");
+						} else {																			//Adds a div for the line if it doesn't exists
+							$("#station" + number + " > .metros").append("<div class = \"line" + metros[j].GroupOfLineId + "\"><div class = \"direction1\"></div><div class = \"direction2\"></div></div>");
+							$("#station" + number + " > .metros > .line" + metros[j].GroupOfLineId + " > .direction" + metros[j].JourneyDirection)
+							.append("<li>" + metros[j].Destination + " " + metros[j].DisplayTime + "</li>");
+							$("#station" + number + " > .stationhead > .toggleline" + metros[j].GroupOfLineId).removeAttr("disabled").addClass("show");
+
 						};
 					}
 				}
