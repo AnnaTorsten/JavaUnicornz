@@ -89,18 +89,17 @@ function getDepartures(siteid, stationname, number) {		//Uses SiteId to find dep
 	    dataType: 'json',
 	    type: 'get',
 
-
 		success: function(data) {
-			console.log('received data in getDepartures for ' + siteid);
 
-			var metros = data.ResponseData.Metros;
-			var trains = data.ResponseData.Trains;
+			// var metros = data.ResponseData.Metros;
+			// var trains = data.ResponseData.Trains;
 
-			if (metros.length % 6 != 0 || trains.length % 6 != 0) {
-				getDepartures(siteidstation, stationname, number);
-				console.log("Incomplete answer, reloaded for station" + stationname);
-				return;
-			}
+			// // checks that the response from SL is complete = that each metro/train line gives 6 departures (3 for each direction).
+			// if (metros.length % 6 != 0 || trains.length % 6 != 0) {
+			// 	getDepartures(siteidstation, stationname, number);
+			// 	console.log("Incomplete answer, reloaded for station " + stationname);
+			// 	return;
+			// }
 
 			if (metros.length > 0 || trains.length > 0) {	//Checks if it actually is a metro or train station
 				$("#station" + number)						//Creates a headline with the stations name and one disabled button for each line.
