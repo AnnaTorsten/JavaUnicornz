@@ -31,8 +31,8 @@ function getStations(coordinates) {		//Uses coordinates to find nearby stations 
 			var nearbystations = data.results;
 			if (nearbystations.length > 0) {
 				for (i = 0; i < 2; i++ ) {	//Itterates through nearby stations and calls getSiteID
-					getSiteId(nearbystations[i].name.toLowerCase(),i+1);
 					$("#result").append("<div class=\"station\" id=\"station" + (i + 1) + "\"></div>"); 
+					getSiteId(nearbystations[i].name.toLowerCase(),i+1);
 				}
 			}
 		},
@@ -42,6 +42,7 @@ function getStations(coordinates) {		//Uses coordinates to find nearby stations 
 		}
 	});
 }
+
 
 function getSiteId(site, number) {		//Finds SiteId using the nearby stations and SL Platsinfo API
 	console.log('#' + number + 'running getSiteId for ' + site);
@@ -71,6 +72,11 @@ function getSiteId(site, number) {		//Finds SiteId using the nearby stations and
 }
 
 function getDepartures(siteid, stationname, number) {		//Uses SiteId to find departures with SL Realtidsinfo API
+	
+	var siteidstation = siteid
+	var stationname = stationname
+	var number = number
+	console.log(siteidstation + stationname + number);
 	console.log('#' + number + 'calling getDepartures ' + siteid);
 	$.ajax({
 	    url: 'http://lit-headland-6335.herokuapp.com/api2/realtimedepartures.json',
@@ -83,10 +89,19 @@ function getDepartures(siteid, stationname, number) {		//Uses SiteId to find dep
 	    dataType: 'json',
 	    type: 'get',
 
+
 		success: function(data) {
 			console.log('received data in getDepartures for ' + siteid);
+
 			var metros = data.ResponseData.Metros;
 			var trains = data.ResponseData.Trains;
+
+			if (metros.length % 6 != 0 || trains.length % 6 != 0) {
+				getDepartures(siteidstation, stationname, number);
+				console.log("Incomplete answer, reloaded for station" + stationname);
+				return;
+			}
+
 			if (metros.length > 0 || trains.length > 0) {	//Checks if it actually is a metro or train station
 				$("#station" + number)						//Creates a headline with the stations name and one disabled button for each line.
 					.append("<div class = \"stationhead\"><h2>" + stationname + "</h2>" +
