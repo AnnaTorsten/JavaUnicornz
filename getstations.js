@@ -31,8 +31,9 @@ function getStations(coordinates) {		//Uses coordinates to find nearby stations 
 			var nearbystations = data.results;
 			if (nearbystations.length > 0) {
 				for (i = 0; i < 2; i++ ) {	//Itterates through nearby stations and calls getSiteID
-					getSiteId(nearbystations[i].name.toLowerCase(),i+1);
 					$("#result").append("<div class=\"station\" id=\"station" + (i + 1) + "\"></div>"); 
+					getSiteId(nearbystations[i].name.toLowerCase(),i+1);
+
 				}
 			}
 		},
