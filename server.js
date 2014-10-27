@@ -34,13 +34,16 @@ var server = http.createServer(function (request, response) {
 	}
 
 	if (parsedUrl.pathname.indexOf('maps/api/place/nearbysearch/json') >= 0) {
+		// Christoffers key
 		parsedUrl.query.key = 'AIzaSyDVw-ruTyNahkP3hx7LcNP8XXHNqr0BSYA';
 	} 
 	else if (parsedUrl.pathname.indexOf('api2/typeahead.json') >= 0) {
-		parsedUrl.query.key = '93755c16ac8e487096c640ae0327b483';
+		// Carolines key (körde slut på Christoffers)
+		parsedUrl.query.key = '3f3bc4e3d6eb448fb32de7d0df622f97';
 	} 
 	else if (parsedUrl.pathname.indexOf('api2/realtimedepartures.json') >= 0) {
-		parsedUrl.query.key = '74b0060de6e2403780e6dfbacada5743';
+		// Christoffers key (körde slut på Carolines)
+		parsedUrl.query.key = 'bd58e1f4458c420089861211933ed4d1';
 	} 
 	
 	parsedUrl.hostname = parsedUrl.query.hostname;
