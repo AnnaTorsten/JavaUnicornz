@@ -73,9 +73,9 @@ function getSiteId(site, number) {		//Finds SiteId using the nearby stations and
 
 function getDepartures(siteid, stationname, number) {		//Uses SiteId to find departures with SL Realtidsinfo API
 	
-	var siteidstation = siteid
-	var stationname = stationname
-	var number = number
+	// var siteidstation = siteid
+	// var stationname = stationname
+	// var number = number
 	console.log(siteidstation + stationname + number);
 	console.log('#' + number + 'calling getDepartures ' + siteid);
 	$.ajax({
@@ -91,8 +91,8 @@ function getDepartures(siteid, stationname, number) {		//Uses SiteId to find dep
 
 		success: function(data) {
 
-			// var metros = data.ResponseData.Metros;
-			// var trains = data.ResponseData.Trains;
+			var metros = data.ResponseData.Metros;
+			var trains = data.ResponseData.Trains;
 
 			// // checks that the response from SL is complete = that each metro/train line gives 6 departures (3 for each direction).
 			// if (metros.length % 6 != 0 || trains.length % 6 != 0) {
