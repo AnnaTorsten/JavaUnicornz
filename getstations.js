@@ -177,7 +177,7 @@ function getDepartures(siteid, stationname, number) {
 
 				responseready++;
 				
-				console.log("response" + responseready + "is ready");
+				console.log("response " + responseready + " is ready");
 
 				var fadeloading = function() {
 					$("#loading").fadeOut(400, function() { $(this).remove(); });
