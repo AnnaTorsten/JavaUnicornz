@@ -1,5 +1,7 @@
 // Global variable to track number of reloads on the response due to incomplete answer
+// and to see when getdepartures is done for both stations
 var retries = 0;
+var responseready = 0;
 
 // Tries to get the users location.
 var getLocation = function() {			//Runs the code ASAP
@@ -110,7 +112,7 @@ function getDepartures(siteid, stationname, number) {
 			// There should be 6 depatures for each line if they are complete)
 			if (metros.length % 6 != 0 || trains.length % 6 != 0) {
 				// Log each error in a global variable
-				retries = (retries + 1);
+				retries++;
 
 				// If no of errors are less than 3, make a new call in getDepartures and exit function
 				if (retries < 3) {
@@ -127,7 +129,13 @@ function getDepartures(siteid, stationname, number) {
 			}
 
 			// Checks if there are any depatures listed for Metros or Trains
-			if (metros.length > 0 || trains.length > 0) {	
+			if (metros.length > 0 || trains.length > 0) {
+
+				//$('#loading').empty();
+				if (responseready < 2) {
+					$("#station" + number).css({ opacity: 0 })
+				}
+
 				// Creates a headline with the stations name and one disabled button for each line
 				$("#station" + number)						
 					.append("<div class = \"stationhead\"><h2>" + stationname + "</h2>" +
@@ -153,7 +161,7 @@ function getDepartures(siteid, stationname, number) {
 							$("#station" + number + " > .stationhead > .line" + metros[j].GroupOfLineId).removeAttr("disabled").click(function() {
 								$("#station" + number + " > .metros > ." + $(this).attr("class")).slideToggle();
 							});
-						};
+						}
 					}
 				}
 				if (trains.length > 0) {					//Checks if it is a train station
@@ -166,7 +174,28 @@ function getDepartures(siteid, stationname, number) {
 							.append("<li>" + trains[j].Destination + " " + trains[j].DisplayTime + "</li>");
 					}
 				}
+
+				responseready++;
+				
+				console.log("response" + responseready + "is ready");
+
+				var fadeloading = function() {
+					$("#loading").fadeOut(400, function() { $(this).remove(); });
+					}
+
+				var showresponse = function() {
+						fadeloading();
+						setTimeout(function(){
+							$("#station" + 1).css({ opacity: 1 });
+							$("#station" + 2).css({ opacity: 1 });
+						},600);
+					}
+				if (responseready == 2) {
+					showresponse();
+				}
 			}
+
+
 		},
 		error: function(data) {
 			$("#result").html(JSON.stringify(data));
