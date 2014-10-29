@@ -5,18 +5,17 @@ SLavgång
 
 "Gets you places"
 
-Main project:
+<b>Main project:</b>
 
-index.html
-getstations.js
-style.css
-svg.js
-tbana.svg
+index.html</br>
+getstations.js</br>
+style.css</br>
+svg.js</br>
+tbana.svg</br>
 
+<b>Test files:</b>
 
-Test files:
-
-base.css
-new.js
-test.html
+base.css</br>
+new.js</br>
+test.html</br>
 
