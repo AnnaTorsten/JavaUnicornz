@@ -1,0 +1,89 @@
+<html>
+<head>
+    <title>on track</title>
+
+
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="http://d3js.org/queue.v1.min.js"></script>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+
+    <link rel="stylesheet" href="base.css">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <style type="text/css">
+        #container {
+            margin: 45px;
+        }
+
+        div, h1, p {
+            margin: 5px;
+            border: red solid 1px;
+        }
+    </style>
+</head>
+
+
+<body>
+
+<script type="text/javascript" src="svg.js"></script>
+    
+<div id="loading">
+        </br>
+      <p align=center> Calculating to get you out of here . . .</p>
+        </br>
+    <div id="svg"></div>
+</div>
+
+<div ng-app="" ng-controller="myControl">
+    <div ng-repeat="station in stations">
+        <h1>{{station.name}}</h1>
+        <div class="metros" ng-repeat="line in station.metros">
+            <div ng-repeat="dir in line">
+                <ul>
+                    <li ng-repeat="dep in dir">{{dep.Destination}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="new.js"></script>
+
+<script type="text/javascript">
+
+
+
+
+// window.onload = function() {
+//     for (var x in obj) {
+//         var first = obj[x];
+//         var div = $('<div></div>').addClass('foo')
+//             .appendTo('#container');
+
+//         $('<h1></h1>').text(x)
+//             .appendTo(div);
+
+//         for (var y in first) {
+//             var second = first[y];
+//             var div2 = $('<div></div>')
+//                 .appendTo(div);
+
+//             $('<h2></h2>').text(y)
+//                 .appendTo(div2);
+//             var ul = $('<ul></ul>')
+//                 .appendTo(div2);
+//             for (var i in second) {
+//                 var li = $('<li></li>').text(second[i])
+//                     .appendTo(ul);
+//             }
+//         }
+//     }
+// }
+
+</script>
+
+</body>
+</html>

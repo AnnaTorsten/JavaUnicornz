@@ -24,7 +24,7 @@ html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abb
 body {
   font-family: "Exo 2", "Helvetica Neue", Helvetica, sans-serif;
   font-weight: 300;
-  font-size: 2em;
+  font-size: 1em;
   line-height: 1.2em;
   background: mintcream;
   color: #475B62;
@@ -72,8 +72,75 @@ button {
   margin-left: 2px;
   margin-right: 2px;
 }
- 
 
+li {
+  list-style: none;
+  line-height: 1.5em;
+}
+
+.t {
+  font-size: 0.7em;
+  float: left;
+  margin-right: 0.5em;
+}
+
+.t-green-bg {
+  background-color: green;
+}
+
+.t-red-bg {
+  background-color: orangered;
+}
+
+.t-blue-bg {
+  background-color: blue;
+}
+
+.t-green-fg {
+  color: green;
+}
+
+.t-red-fg {
+  color: orangered;
+}
+
+.t-blue-fg {
+  color: blue;
+}
+
+
+.t-outer {
+  width: 1.8em;
+  height: 1.8em;
+  border-radius: 0.2em;
+  text-align: center;
+  line-height: 1.5em;
+}
+
+.t-inner {
+  width: 1.2em;
+  height: 1.2em;
+  display: inline-block;
+  background-color: white;
+  border-radius: 0.6em;
+  margin-top: 0.1em;
+  font-size: 1.3em;
+  font-weight: bold;
+}
+
+#loading {
+  margin-top: 30px;
+}
+
+#svg {
+  max-width: 600px;
+  margin: auto auto;
+  border: 0px solid lightgray;
+
+  opacity: 0.9;
+  z-index:1002;
+  overflow: auto;
+}
 
 #result {
   position: absolute;
