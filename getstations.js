@@ -139,7 +139,7 @@ function getDepartures(siteid, stationname, number) {
 
 				// Creates a headline with the stations name and one disabled button for each line
 				$("#station" + number)						
-					.append("<div class = \"stationhead\"><h2>" + stationname + "</h2>" +
+					.append("<div class = \"stationhead\"><h2>" + stationname.substring(0, stationname.indexOf('(')) + "</h2>" +
 					"<svg class = \"line1 \" >" + greenButton + "</svg>" +
 					"<svg class = \"line2\" >" + redButton + "</svg>" + 
 					"<svg class = \"line3\" >" + blueButton + "</svg>" + 
