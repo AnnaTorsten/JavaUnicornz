@@ -6,8 +6,8 @@ queue()
 function ready(error, xml) {
     //Adding our svg file to HTML document
     var importedNode = document.importNode(xml.documentElement, true);
-    d3.select("#svg").node().appendChild(importedNode);
-    var svg = d3.select("svg");
+    d3.select("#tbana").node().appendChild(importedNode);
+    var svg = d3.select("tbana");
     var svgElem = svg.node();
 
     // layers

@@ -2,6 +2,7 @@
 // and to see when getdepartures is done for both stations
 var retries = 0;
 var responseready = 0;
+$("#container").css({ opacity: 0 });
 
 // Tries to get the users location.
 var getLocation = function() {			//Runs the code ASAP
@@ -139,11 +140,10 @@ function getDepartures(siteid, stationname, number) {
 				// Creates a headline with the stations name and one disabled button for each line
 				$("#station" + number)						
 					.append("<div class = \"stationhead\"><h2>" + stationname + "</h2>" +
-					"<button class = \"line1\" disabled></button>" +
-					"<button class = \"line2\" disabled></button>" + 
-					"<button class = \"line3\" disabled></button>" + 
-					"<button class = \"train\" disabled></button></div>");
-
+					"<svg class = \"line1 \" >" + greenButton + "</svg>" +
+					"<svg class = \"line2\" >" + redButton + "</svg>" + 
+					"<svg class = \"line3\" >" + blueButton + "</svg>" + 
+					"<svg class = \"train\" >" + trainButton + "</svg></div>");
 				// If there are departures listed in Metros, do this
 				if (metros.length > 0) {					
 					$("#station" + number).append("<div class = \"metros\"></div>");
@@ -188,6 +188,7 @@ function getDepartures(siteid, stationname, number) {
 						setTimeout(function(){
 							$("#station" + 1).css({ opacity: 1 });
 							$("#station" + 2).css({ opacity: 1 });
+							$("#container").css({ opacity: 1 });
 						},600);
 					}
 				if (responseready == 2) {
@@ -202,3 +203,27 @@ function getDepartures(siteid, stationname, number) {
 		}
 	});
 }
+
+
+var trainButton = "<svg version=\"1.1\" id=\"Lager_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"" + 
+" x=\"0px\" y=\"0px\" width=\"40px\" height=\"40px\" viewBox=\"0 0 57.039 57.039\" enable-background=\"new 0 0 57.039 57.039\" " + 
+"xml:space=\"preserve\"><g class=\"trainact\"><circle class=\"trainact\" fill=\"#4F4E48\" cx=\"28.52\" cy=\"28.519\" r=\"28.52\"/><g><path fill=\"#FFFFFF\" " + 
+"d=\"M36.917,35.894c0,1.181-0.211,2.286-0.632,3.315c-0.422,1.03-1.048,1.9-1.879,2.611c-0.879,0.759-1.939,1.346-3.18,1.761c-1.241," + 
+"0.416-2.776,0.624-4.607,0.624c-1.241,0-2.409-0.045-3.505-0.135c-1.096-0.09-2.06-0.22-2.891-0.388v-5.439h0.65c0.578,0.217,1.18,0.418," + 
+"1.807,0.605c0.626,0.187,1.427,0.28,2.403,0.28c1.265,0,2.237-0.169,2.917-0.506c0.681-0.338,1.166-0.808,1.455-1.411c0.277-0.59," + 
+"0.434-1.239,0.47-1.944c0.036-0.705,0.054-1.606,0.054-2.704V21.838h-6.161v-4.95h13.098V35.894z\"/></g></g></svg>"
+
+var redButton = "<svg version=\"1.1\" id=\"Lager_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"" + 
+" x=\"0px\" y=\"0px\" width=\"40px\" height=\"40px\" viewBox=\"0 0 57.039 57.039\" enable-background=\"new 0 0 57.039 57.039\" " + 
+"xml:space=\"preserve\"><g class=\"redact\"><circle class=\"redact\" fill=\"#BF3C3C\" cx=\"28.52\" cy=\"28.519\" r=\"28.52\"/><g><path fill=\"#FFFFFF\" " + 
+"d=\"M39.999,22.688h-8.125v20.983h-6.709V22.688h-8.125v-5.032h22.958V22.688z\"/></g></g></svg>"
+
+var greenButton = "<svg version=\"1.1\" id=\"Lager_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"" + 
+" x=\"0px\" y=\"0px\" width=\"40px\" height=\"40px\" viewBox=\"0 0 57.039 57.039\" enable-background=\"new 0 0 57.039 57.039\" " + 
+"xml:space=\"preserve\"><g class=\"greenact\"><circle class=\"greenact\" fill=\"#2B7347\" cx=\"28.52\" cy=\"28.519\" r=\"28.52\"/><g><path fill=\"#FFFFFF\" " + 
+"d=\"M39.999,22.688h-8.125v20.983h-6.709V22.688h-8.125v-5.032h22.958V22.688z\"/></g></g></svg>"
+
+var blueButton = "<svg version=\"1.1\" id=\"Lager_1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\"" + 
+" x=\"0px\" y=\"0px\" width=\"40px\" height=\"40px\" viewBox=\"0 0 57.039 57.039\" enable-background=\"new 0 0 57.039 57.039\" " + 
+"xml:space=\"preserve\"><g class=\"blueact\"><circle class=\"blueact\" fill=\"#3766A8\" cx=\"28.52\" cy=\"28.519\" r=\"28.52\"/><g><path fill=\"#FFFFFF\" " + 
+"d=\"M39.999,22.688h-8.125v20.983h-6.709V22.688h-8.125v-5.032h22.958V22.688z\"/></g></g></svg>"

@@ -1,41 +1,157 @@
-
-
 body {
-	background-color: 
+	background-color:#FFFFFF;
+	background-position: center;
+	border: 10px;
 }
 
-h2 {}
+#logo {}
 
-p {}
 
-li {}
+
+#container {
+	position: relative;
+	text-align: center;
+	position: center;
+	margin-top: 25px;
+}
+
+h1 {
+	color: black;
+	font-family: sans-serif;
+	font-weight: lighter;
+	font-size: 50px; 
+	position: center;
+}
+
+p {color: black;
+font-family: sans-serif;
+font-weight: lighter;}
+
+li {
+text-transform: uppercase; 
+font-family: sans-serif;
+	color: black;
+	list-style-type: none;
+	line-height: 150%;
+	font-size: small;
+}
+
+ul li {
+list-style-type: none;
+line-height: 150%;
+font-size: small;
+}
+
+#tbana {
+	max-width: 600px;
+	margin: auto auto;
+	opacity: 0.9;
+	overflow: auto;
+}
+
+.redact:hover {fill:#CF5B58;}
+.trainact:hover {fill:#ADAB9D;}
+.greenact:hover {fill:#4AC77B;}
+.blueact:hover {fill:#4A87E0;}
+.redact:hover .redact {fill:#CF5B58;}
+.trainact:hover .trainact {fill:#ADAB9D;}
+.greenact:hover .greenact {fill:#4AC77B;}
+.blueact:hover .blueact {fill:#4A87E0;}
 
 .trains {}
+
+#loadingtext {}
 
 .direction1 {}
 
 .direction2 {}
 
-.stationhead {}
+.stationhead {
+	    cursor:default;
+	    background-color: #E8E8E8;
+	}
 
-.metros {}
+h2 {
+color: black;
+font-family: sans-serif;
+font-weight: lighter;
+}
 
+h3 {
+	text-align: center;
+	font-family: 'Shift', sans-serif;
+	font-weight: lighter;
+	font-size: 13px;
+	color: #333314;
+
+}
+
+div.station {
+	margin: 10px 25px;
+}
+
+.metros {background-color: #E8E8E8;
+}
+
+/* .metros.p {background-color: yellow;}
+*/
 /* grön line */
-.line1 {
+.stationhead .line1 {
+	width: 55;
+	height: 55;
 }
 
 /* röd line */
-.line2 {
+.stationhead .line2 {
+	width: 55;
+	height: 55;
 }
 
 /* blå line */
-.line3 {
+.stationhead .line3 {
+	width: 55;
+	height: 55;
 }
 
 /* tåg line */
-.trains {
+.stationhead .train {
+	width: 55;
+	height: 55;
 }
 
-button {}
 
-.footer {}
+.line2 div {
+		text-decoration: underline; 
+		 margin-top: 0px;
+    margin-bottom: 10px;
+    margin-right: 0px;
+    margin-left: 0px;
+    text-decoration: underline; color: #C25653; 
+}
+
+.line3 div {
+	text-decoration: underline; 
+	margin-top: 0px;
+    margin-bottom: 10px;
+    margin-right: 0px;
+    margin-left: 0px;
+    text-decoration: underline; color: #4884DB; 
+}
+
+.line1 div {
+	text-decoration: underline; 
+	margin-top: 0px;
+    margin-bottom: 10px;
+    margin-right: 0px;
+    margin-left: 0px;
+    text-decoration: underline; color: #4AC77B; 
+}
+
+.trains div {
+	text-decoration: underline; 
+	margin-top: 0px;
+    margin-bottom: 10px;
+    margin-right: 0px;
+    margin-left: 0px;
+    text-decoration: underline; color: #52504A; 
+}
