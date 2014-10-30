@@ -55,11 +55,11 @@ font-size: small;
 	overflow: auto;
 }
 
-.redact:hover {fill:#CF5B58;}
+.redact:hover {fill:#FF5664;}
 .trainact:hover {fill:#ADAB9D;}
 .greenact:hover {fill:#4AC77B;}
 .blueact:hover {fill:#4A87E0;}
-.redact:hover .redact {fill:#CF5B58;}
+.redact:hover .redact {fill:#FF5664;}
 .trainact:hover .trainact {fill:#ADAB9D;}
 .greenact:hover .greenact {fill:#4AC77B;}
 .blueact:hover .blueact {fill:#4A87E0;}
@@ -81,6 +81,7 @@ h2 {
 color: black;
 font-family: sans-serif;
 font-weight: lighter;
+padding-top: 15px;
 }
 
 h3 {
@@ -97,6 +98,7 @@ div.station {
 }
 
 .metros {background-color: #E8E8E8;
+	padding-bottom: 15px;
 }
 
 /* .metros.p {background-color: yellow;}
