@@ -4,7 +4,13 @@ body {
 	border: 10px;
 }
 
-#logo {}
+#logo {
+	position: relative;
+	text-align: center;
+	position: center;
+	margin-top: 25px;
+	width: 120px;
+}
 
 
 
